@@ -1,0 +1,79 @@
+if industry != "":
+			self.industry = industry.rstrip()
+			self.industry = industry.lstrip()
+		else: self.industry = None
+		
+        if brand != "":
+			if (len(brand.strip()) > 4): 
+				brand.strip()
+				self.brand = brand[:4]
+			else: 
+				self.brand = brand.strip()
+		else: 
+			self.brand = None
+		
+		if ccv!= "":
+			if (len(ccv.strip()) > 4): #AMEX ccv's are four digits, so make sure you don't change this to 3
+				ccv.strip()
+				self.ccv = ccv[:4]
+			else: 
+				self.ccv = ccv.strip()
+		else: 
+			self.ccv = None
+		
+		if account_number != "":
+			if (len(account_number.strip()) > 9): 	
+				account_number.strip()
+				self.account_number = account_number[:9]
+			else: 
+				self.account_number = account_number.strip()
+		else: 
+			self.account_number = None
+		
+		#need to put some validation for the expiration date
+		self.expiration_date = expiration_date
+		
+		if issuer_identification_number != "":
+			if (len(issuer_identification_number.strip()) > 6): 
+				issuer_identification_number.strip()
+				self.issuer_identification_number = issuer_identification_number[:6]
+			else: 
+				self.issuer_identification_number = issuer_identification_number.strip() #we should actually enforce there be exactly 6 chars
+		else: 
+			self.issuer_identification_number = None	
+		
+		if owner_first_name != "":			
+			if (len(first.strip()) > 25): 
+				first.strip()
+				self.owner_first_name = first[:25]
+			else: 
+				self.owner_first_name = first.strip()
+		else: 
+			self.owner_first_name = None	
+			
+		if owner_MI != "":
+			if (len(MI.strip()) > 2): 
+				self.owner_MI = MI.strip()
+				self.owner_MI = MI[:2] #we will be nice because some people have two middle names
+			else: 
+				self.owner_MI = MI.strip()
+		else: 
+			self.owner_MI = None		
+			
+		if owner_last_name != "":
+			if (len(last.strip()) > 25): 
+				last.strip()
+				self.owner_last_name = last[:25]
+			else: 
+				owner_last_name = last.strip()
+		else: 
+			self.owner_last_name =  None	
+		
+		if owner_suffix != "":
+			if (len(suffix.strip()) > 4):
+				suffix.strip()
+				self.owner_suffix = suffix[:4]
+			else:
+				suffix.strip()
+		else: 
+			self.suffix =  None
