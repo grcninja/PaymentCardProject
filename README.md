@@ -1,6 +1,7 @@
 # PaymentCardProject
 
 #Code Status:  IN PROGRESS
+#Python Version: 3.4
 #Summary:  This project is aimed at creating a tool to generate legitimate credit card numbers based on partial user input.
 
 """
