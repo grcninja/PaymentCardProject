@@ -3,26 +3,105 @@
 #author twitter @grc_ninja
 
 
+import datetime
+import math
 import string 
 import sys
-import math
+import types
 
 class PaymentCard(object):
 	tAllowedCardTypes = ("MC","VISA","AMEX","DC","DISC","UNK")
 	tKnownCardTypes = ("MC","VISA","AMEX","DC","DISC")
-
+	#ALL arguments must be strings except for the expiration_date which mush be a date value
+	#python 3 allows isinstance(x, type) to check and see if the variable is the proper type
+	#reference: https://docs.python.org/3.4/library/types.html
+	
 	def __init__(self, industry, brand, ccv, account_number, expiration_date, issuer_identification_number, first, MI, last, suffix):
        
-		self.industry = industry
-		self.brand = brand
-		self.ccv = ccv
-		self.account_number = account_number
-		self.expiration_date = expiration_date
-		self.issuer_identification_number = issuer_identification_number
-		self.first = first
-		self.MI = MI
-		self.last = last
-		self.suffix = suffix
+		if (industry != "" and isinstance(industry,str)):
+			self.industry = industry.rstrip()
+			self.industry = industry.lstrip()
+		else: self.industry = None
+		#self.industry = industry
+		if (brand != "" and isinstance(industry,str)):
+			if (len(brand.strip()) > 4): 
+				brand.strip()
+				self.brand = brand[:4]
+			else: 
+				self.brand = brand.strip()
+		else: 
+			self.brand = None
+		#self.brand = brand
+		if (ccv!= "" and isinstance(industry,str)):
+			if (len(ccv.strip()) > 4): #AMEX ccv's are four digits, so make sure you don't change this to 3
+				ccv.strip()
+				self.ccv = ccv[:4]
+			else: 
+				self.ccv = ccv.strip()
+		else: 
+			self.ccv = None
+		#self.ccv = ccv
+		if (account_number != "" and isinstance(industry,str)):
+			if (len(account_number.strip()) > 9): 	
+				account_number.strip()
+				self.account_number = account_number[:9]
+			else: 
+				self.account_number = account_number.strip()
+		else: 
+			self.account_number = None
+		#self.account_number = account_number
+		
+		if (isinstance(expiration_date, datetime) and expiration_date > date.today()):
+			self.expiration_date = expiration_date
+		else: 
+			self.expiration_date = None	
+		#self.expiration_date = expiration_date
+		
+		if (issuer_identification_number != ""and isinstance(industry,str)):
+			if (len(issuer_identification_number.strip()) > 6): 
+				issuer_identification_number.strip()
+				self.issuer_identification_number = issuer_identification_number[:6]
+			else: 
+				self.issuer_identification_number = issuer_identification_number.strip() #we should actually enforce there be exactly 6 chars
+		else: 
+			self.issuer_identification_number = None	
+		#self.issuer_identification_number = issuer_identification_number
+		if (owner_first_name != "" and isinstance(industry,str)):			
+			if (len(first.strip()) > 25): 
+				first.strip()
+				self.owner_first_name = first[:25]
+			else: 
+				self.owner_first_name = first.strip()
+		else: 
+			self.owner_first_name = None	
+		#self.first = first
+		if (owner_MI != "" and isinstance(industry,str)):
+			if (len(MI.strip()) > 2): 
+				self.owner_MI = MI.strip()
+				self.owner_MI = MI[:2] #we will be nice because some people have two middle names
+			else: 
+				self.owner_MI = MI.strip()
+		else: 
+			self.owner_MI = None
+		#self.MI = MI
+		if (owner_last_name != "" and isinstance(industry,str)):
+			if (len(last.strip()) > 25): 
+				last.strip()
+				self.owner_last_name = last[:25]
+			else: 
+				owner_last_name = last.strip()
+		else: 
+			self.owner_last_name =  None	
+		#self.last = last
+		if (owner_suffix != "" and isinstance(industry,str)):
+			if (len(suffix.strip()) > 4):
+				suffix.strip()
+				self.owner_suffix = suffix[:4]
+			else:
+				suffix.strip()
+		else: 
+			self.suffix =  None
+		#self.suffix = suffix
 		
 	def industry(self):
 		return self.industry
