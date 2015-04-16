@@ -21,6 +21,7 @@ class PaymentCard(object):
 		if (industry != "" and isinstance(industry,str)):
 			self.industry = industry.rstrip()
 			self.industry = industry.lstrip()
+			self.industry = industry[:1]
 		else: self.industry = None
 		#self.industry = industry
 		if (brand != "" and isinstance(industry,str)):
