@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #ClassPaymentCard
 #created using python 3.4
 #author twitter @grc_ninja
@@ -57,13 +58,16 @@ class PaymentCard(object):
 			self.account_number = None
 		
 		#self.expiration_date = expiration_date
-		if (isinstance(expiration_date, datetime) and expiration_date > date.today()):
-			self.expiration_date = expiration_date
-		else: 
+		try:
+			if (expiration_date > datetime.date.today()):
+				self.expiration_date = expiration_date
+			else: 
+				self.expiration_date = None	
+		except ValueError:
 			self.expiration_date = None	
-		
+			print ("A valid date type was not received therefore a value of None has been returned")
 		#self.issuer_identification_number = issuer_identification_number
-		if (issuer_identification_number != ""and isinstance(industry,str)):
+		if (issuer_identification_number != ""and isinstance(issuer_identification_number,str)):
 			if (len(issuer_identification_number.strip()) > 6): 
 				issuer_identification_number.strip()
 				self.issuer_identification_number = issuer_identification_number[:6]
@@ -73,7 +77,7 @@ class PaymentCard(object):
 			self.issuer_identification_number = None	
 		
 		#self.first = first
-		if (owner_first_name != "" and isinstance(industry,str)):			
+		if (first != "" and isinstance(first,str)):			
 			if (len(first.strip()) > 25): 
 				first.strip()
 				self.owner_first_name = first[:25]
@@ -83,7 +87,7 @@ class PaymentCard(object):
 			self.owner_first_name = None	
 		
 		#self.MI = MI
-		if (owner_MI != "" and isinstance(industry,str)):
+		if (MI != "" and isinstance(MI,str)):
 			if (len(MI.strip()) > 2): 
 				self.owner_MI = MI.strip()
 				self.owner_MI = MI[:2] #we will be nice because some people have two middle names
@@ -93,7 +97,7 @@ class PaymentCard(object):
 			self.owner_MI = None
 		
 		#self.last = last
-		if (owner_last_name != "" and isinstance(industry,str)):
+		if (last != "" and isinstance(last,str)):
 			if (len(last.strip()) > 25): 
 				last.strip()
 				self.owner_last_name = last[:25]
@@ -103,7 +107,7 @@ class PaymentCard(object):
 			self.owner_last_name =  None	
 		
 		#self.suffix = suffix
-		if (owner_suffix != "" and isinstance(industry,str)):
+		if (suffix != "" and isinstance(suffix,str)):
 			if (len(suffix.strip()) > 4):
 				suffix.strip()
 				self.owner_suffix = suffix[:4]
