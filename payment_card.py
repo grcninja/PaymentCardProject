@@ -137,7 +137,7 @@ class PaymentCard(object):
 		return self.owner_last_name
 	def owner_suffix(self):
 		return self.owner_suffix
-	def industry_get(str_card_number):
+	def industry_get(self, str_card_number):
 		# 1 = Airline
 		# 2 = Airline
 		# 3 = Travel and Entertainment
@@ -165,28 +165,31 @@ class PaymentCard(object):
 			print("The card number value contains an invalid character at the 0th index.\n A null value has been returned for the industry.")
 			industry = None
 		return(industy)	
-	def brand_get(str_card_number):
+		
+	def brand_get(self, str_card_number):
 		# Visa = 4
 		# MasterCard = 51, 52, 53, 54, 55
 		# Discover = 6011, 644, 65,
 		# Amex = 34, 37
 		# Diner's Club = 36, 38
-		brand, val = ""
-		card_number = str_card_number.strip()
+		brand = ""
+		val = ""
+		card_number = str(str_card_number.strip())
+		
 		try:
 			val = card_number[:4]
 			if val[0] == "4": brand = "VISA"
-			if (51<= int(val[:2],10) <= 55): brand = "MC"
-			if (val == "6011" or val[:3]=="644" or val=="65"): brand ="DISC"
-			if (val[:2]=="34" or val[:2]=="37"): brand = "AMEX"
-			if (val[:2]=="36" or val[:2]=="38"): brand = "DC"
+			elif (51<= int(val[:2],10) <= 55): brand = "MC"
+			elif (val == "6011" or val[:3]=="644" or val=="65"): brand ="DISC"
+			elif (val[:2]=="34" or val[:2]=="37"): brand = "AMEX"
+			elif (val[:2]=="36" or val[:2]=="38"): brand = "DC"
 			else:
 				brand = "UNK"
 		except ValueError:
 			print("The card number value contains an invalid characters.\n A null value has been returned for the brand.")
 			brand = None
 		return(brand)	
-	def ccv_set(digits, brand):
+	def ccv_set(self, digits, brand):
 		Warnings = ""
 		ccv = ""
 		try:
@@ -221,7 +224,7 @@ class PaymentCard(object):
 			print("There was a problem with the digits or brand values passed to the set_ccv function.\n A null value has been returned for the ccv.")
 			code = None
 		return(code)
-	def ccv_random(brand):
+	def ccv_random(self, brand):
 		Warnings = ""
 		ccv = ""
 		try:
@@ -234,7 +237,7 @@ class PaymentCard(object):
 			print("There was a problem with the digits or brand values passed to the set_ccv function.\n A null value has been returned for the ccv.")
 			ccv = None
 		return(ccv)
-	def issuer_identification_number_get(str_card_number):
+	def issuer_identification_number_get(self, str_card_number):
 		card_number = str_card_number
 		iin = ""
 		#The IIN is the first 6 digits of the card number
@@ -249,7 +252,7 @@ class PaymentCard(object):
 			print("The card number value contains an invalid characters that could not convert to integers. \nA null value has been returned for the iin.")
 			iin = None
 		return(iin)
-	def owner_full_name_set(first_name, last_name, MI, suffix):
+	def owner_full_name_set(self, first_name, last_name, MI, suffix):
 		owner_name = ""
 		if (self.MI == ""):
 			 owner_name = (self.owner_first_name+" "+self.owner_last_name+" "+self.owner_suffix)
