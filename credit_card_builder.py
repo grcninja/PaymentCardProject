@@ -81,7 +81,8 @@ def buildList(thelist, thecard):
 def generateCardNumbers(pCardNumber, brand):
 	partial_card = pCardNumber
 	valid_numbers = list()
-	replnum_list = list() #not setting a max length leaves room for the list to grow, so we'll set it later
+	replnum_list = list() 
+	temp_list = list()
 	lbrand = brand
 	#This function expects the following values for brand: AMEX,DC,DISC,MC,VISA,UNK
 	#Validate the user passed an acceptable values
@@ -91,10 +92,80 @@ def generateCardNumbers(pCardNumber, brand):
 			unks = partial_card.count("?")
 			replnum_list = generateReplNumsList(unks)
 			valid_numbers = buildList(replnum_list, partial_card)
+							
+		elif lbrand == "MC": # MasterCard = 51, 52, 53, 54, 55
+			#since MC has two known digits for all of its cards we only need to run the possible number set one
+			partial_card = partial_card.replace(partial_card[:2],"50",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
 			
-		"""					
-		insert code here to validate the other brands
-		"""
+			for i in range(5):
+				partial_card = partial_card.replace(partial_card[1],str(i+1),1)
+				temp_list = (buildList(replnum_list, partial_card))
+				for x in range(len(temp_list)):
+					valid_numbers.append(temp_list[x])
+				
+		elif lbrand == "DISC":# Discover = 6011, 644, 65,
+			partial_card = partial_card.replace(partial_card[:4],"6011",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			temp_list = (buildList(replnum_list, partial_card))
+			for x in range(len(temp_list)):
+				valid_numbers.append(temp_list[x])
+			
+			partial_card = partial_card.replace(partial_card[:3],"644",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			temp_list = (buildList(replnum_list, partial_card))
+			for y in range(len(temp_list)):
+				valid_numbers.append(temp_list[y])
+			
+			partial_card = partial_card.replace(partial_card[:2],"65",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			temp_list = (buildList(replnum_list, partial_card))
+			for z in range(len(temp_list)):
+				valid_numbers.append(temp_list[z])
+
+		elif lbrand == "AMEX":# Amex = 34, 37
+			#other areas of the code deal with 16 digits, let's, make sure there's only 15
+			partial_card = partial_card[:15]
+			partial_card = partial_card.replace(partial_card[:2],"34",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			temp_list = (buildList(replnum_list, partial_card))
+			for x in range(len(temp_list)):
+				valid_numbers.append(temp_list[x])
+			
+			partial_card = partial_card.replace(partial_card[:2],"37",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			temp_list = (buildList(replnum_list, partial_card))
+			for y in range(len(temp_list)):
+				valid_numbers.append(temp_list[y])	
+					
+		elif lbrand == "DC":# Diner's Club = 36, 38
+			partial_card = partial_card.replace(partial_card[:2],"36",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			temp_list = (buildList(replnum_list, partial_card))
+			for x in range(len(temp_list)):
+				valid_numbers.append(temp_list[x])
+			
+			partial_card = partial_card.replace(partial_card[:2],"38",1)
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			temp_list = (buildList(replnum_list, partial_card))
+			for y in range(len(temp_list)):
+				valid_numbers.append(temp_list[y])	
+		
+		elif lbrand == "UNK":
+			unks = partial_card.count("?")
+			replnum_list = generateReplNumsList(unks)
+			valid_numbers = buildList(replnum_list, partial_card)
+		else:
+			print(lbrand)
+	
 	else: 
 		print("An invalid card type has been passed to the card generator.\n Allowed inputs are "+gAllowedCardTypes)
 	
@@ -120,7 +191,7 @@ def findIssuer():
 			print ("\nERROR:  That isn't a number! Goodbye!")
 	else:
 		#we don't know the card brand, and we do not know the first digit, which will would tell us the brand
-		print("\n(\_/)\n(>.<)\nThis is going to be more difficult than expected.")
+		print("\n(\_/)\n(>.<)\n  .")
 		brand = "UNK"
 	return(brand)
 
@@ -201,7 +272,7 @@ def main():
 		for i in range(len(validCardNumbers)):
 			f.write(validCardNumbers[i]+"\t")
 	f.close
-	print("Your results file has been placed in c:/temp/ the file name is cardfile_'today's date and time'")
+	print("\n(\_/)\n^.^)\n\nYour results file has been placed in c:/temp/ the file name is cardfile_'today's date and time'")
 
 
 
