@@ -12,7 +12,7 @@ The payment_cards.py file is a class file that needs to be placed in a directory
 
 The file structure should look like this:
 _MyCardBuilder (folder you'll have to make)
-	credit_card_builder.py
-	cards (folder you'll have to make)
-		__init__.py (it can be blank, just need one with this name)
-		payment_card.py
+
+1) contains one file: credit_card_builder.py
+2) contains another folder: cards (folder you'll have to make, no quotes)
+3) the cards folder needs two files in it. 1st) __init__.py (it can be blank, just need one with this name) 2nd) payment_card.py
