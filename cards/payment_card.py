@@ -5,7 +5,7 @@
 
 import datetime
 import math
-import string 
+import string
 import sys
 import types
 
@@ -17,95 +17,95 @@ class PaymentCard(object):
 	#ALL arguments must be strings except for the expiration_date which mush be a date value
 	#python 3 allows isinstance(x, type) to check and see if the variable is the proper type
 	#reference: https://docs.python.org/3.4/library/types.html
-	
+
 	def __init__(self, industry, brand, ccv, account_number, expiration_date, issuer_identification_number, first, MI, last, suffix):
-		
+
 		#self.industry = industry
 		if (industry != "" and isinstance(industry,str)):
 			self.industry = industry.rstrip()
 			self.industry = industry.lstrip()
 			self.industry = industry[:1]
 		else: self.industry = None
-		
+
 		#self.brand = brand
 		if (brand != "" and isinstance(industry,str)):
-			if (len(brand.strip()) > 4): 
+			if (len(brand.strip()) > 4):
 				brand.strip()
 				self.brand = brand[:4]
-			else: 
+			else:
 				self.brand = brand.strip()
-		else: 
+		else:
 			self.brand = None
-		
+
 		#self.ccv = ccv
 		if (ccv!= "" and isinstance(industry,str)):
 			if (len(ccv.strip()) > 4): #AMEX ccv's are four digits, so make sure you don't change this to 3
 				ccv.strip()
 				self.ccv = ccv[:4]
-			else: 
+			else:
 				self.ccv = ccv.strip()
-		else: 
+		else:
 			self.ccv = None
-			
+
 		#self.account_number = account_number
 		if (account_number != "" and isinstance(industry,str)):
-			if (len(account_number.strip()) > 9): 	
+			if (len(account_number.strip()) > 9):
 				account_number.strip()
 				self.account_number = account_number[:9]
-			else: 
+			else:
 				self.account_number = account_number.strip()
-		else: 
+		else:
 			self.account_number = None
-		
+
 		#self.expiration_date = expiration_date
 		try:
 			if (expiration_date > datetime.date.today()):
 				self.expiration_date = expiration_date
-			else: 
-				self.expiration_date = None	
+			else:
+				self.expiration_date = None
 		except ValueError:
-			self.expiration_date = None	
+			self.expiration_date = None
 			print ("A valid date type was not received therefore a value of None has been returned")
 		#self.issuer_identification_number = issuer_identification_number
 		if (issuer_identification_number != ""and isinstance(issuer_identification_number,str)):
-			if (len(issuer_identification_number.strip()) > 6): 
+			if (len(issuer_identification_number.strip()) > 6):
 				issuer_identification_number.strip()
 				self.issuer_identification_number = issuer_identification_number[:6]
-			else: 
+			else:
 				self.issuer_identification_number = issuer_identification_number.strip() #we should actually enforce there be exactly 6 chars
-		else: 
-			self.issuer_identification_number = None	
-		
+		else:
+			self.issuer_identification_number = None
+
 		#self.first = first
-		if (first != "" and isinstance(first,str)):			
-			if (len(first.strip()) > 25): 
+		if (first != "" and isinstance(first,str)):
+			if (len(first.strip()) > 25):
 				first.strip()
 				self.owner_first_name = first[:25]
-			else: 
+			else:
 				self.owner_first_name = first.strip()
-		else: 
-			self.owner_first_name = None	
-		
+		else:
+			self.owner_first_name = None
+
 		#self.MI = MI
 		if (MI != "" and isinstance(MI,str)):
-			if (len(MI.strip()) > 2): 
+			if (len(MI.strip()) > 2):
 				self.owner_MI = MI.strip()
 				self.owner_MI = MI[:2] #we will be nice because some people have two middle names
-			else: 
+			else:
 				self.owner_MI = MI.strip()
-		else: 
+		else:
 			self.owner_MI = None
-		
+
 		#self.last = last
 		if (last != "" and isinstance(last,str)):
-			if (len(last.strip()) > 25): 
+			if (len(last.strip()) > 25):
 				last.strip()
 				self.owner_last_name = last[:25]
-			else: 
+			else:
 				owner_last_name = last.strip()
-		else: 
-			self.owner_last_name =  None	
-		
+		else:
+			self.owner_last_name =  None
+
 		#self.suffix = suffix
 		if (suffix != "" and isinstance(suffix,str)):
 			if (len(suffix.strip()) > 4):
@@ -113,10 +113,10 @@ class PaymentCard(object):
 				self.owner_suffix = suffix[:4]
 			else:
 				suffix.strip()
-		else: 
+		else:
 			self.suffix =  None
-		
-		
+
+
 	def industry(self):
 		return self.industry
 	def brand(self):
@@ -151,7 +151,7 @@ class PaymentCard(object):
 			industry = ""
 			card_number = str_card_number.strip()
 			val = int(card_number[0]) #the first digit of a credit card identifies it's industry
-			
+
 			if (1<= val <= 2): industry="Airline"
 			elif val == 3: industry="Travel and Entertainment"
 			elif (4<= val <=5): industry="Banking"
@@ -164,8 +164,8 @@ class PaymentCard(object):
 		except ValueError:
 			print("The card number value contains an invalid character at the 0th index.\n A null value has been returned for the industry.")
 			industry = None
-		return(industy)	
-		
+		return(industy)
+
 	def brand_get(self, str_card_number):
 		# Visa = 4
 		# MasterCard = 51, 52, 53, 54, 55
@@ -175,7 +175,7 @@ class PaymentCard(object):
 		brand = ""
 		val = ""
 		card_number = str(str_card_number.strip())
-		
+
 		try:
 			val = card_number[:4]
 			if val[0] == "4": brand = "VISA"
@@ -188,7 +188,7 @@ class PaymentCard(object):
 		except ValueError:
 			print("The card number value contains an invalid characters.\n A null value has been returned for the brand.")
 			brand = None
-		return(brand)	
+		return(brand)
 	def ccv_set(self, digits, brand):
 		Warnings = ""
 		ccv = ""
@@ -196,7 +196,7 @@ class PaymentCard(object):
 			code = digits.strip()
 			lbrand = brand.strip()
 			need, x = 0
-			
+
 			if (lbrand in tKnownCardTypes and lbrand != "AMEX"): #note that a card type of UNK will not be processed
 				if (len(code)>3): #if more than three digits were provided, use only the first three
 					Warnings += ("\nMore than three digits were provided for the ccv code of a non-AMEX card.\n Only the first three were used.")
@@ -205,7 +205,7 @@ class PaymentCard(object):
 					Warnings += ("\nNot enough digits were provided for the ccv code of a non-AMEX card.\n 0's have been added to the end.")
 					need = (3 - len(code))
 					for x in range(need):
-						code.append("0")					
+						code.append("0")
 			elif lbrand == "AMEX":
 				if (len(code)>4): #if more than three digits were provided, use only the first three
 					Warnings += ("\nMore than four digits were provided for the ccv code of an AMEX card.\n Only the first four were used.")
@@ -230,9 +230,9 @@ class PaymentCard(object):
 		try:
 			lbrand = brand.strip()
 			if (lbrand in tAllowedCardTypes and lbrand != "AMEX"): #note this can be used even if the brand is "UNK"
-				ccv = random.randint(000, 999)				
+				ccv = random.randint(000, 999)
 			else:
-				ccv = random.randint(0000, 9999)	
+				ccv = random.randint(0000, 9999)
 		except ValueError:
 			print("There was a problem with the digits or brand values passed to the set_ccv function.\n A null value has been returned for the ccv.")
 			ccv = None
@@ -260,7 +260,7 @@ class PaymentCard(object):
 		else:
 			owner_name = (self.owner_first_name+" "+self.owner_MI+" "+self.owner_last_name+" "+self.owner_suffix)
 			owner_name.rstrip() #just in case there is no value for the suffix, remove the spaces at the end
-		
-		return(owner_name)	
+
+		return(owner_name)
 	#need a function for extracting the account number from the full card number
 	#need a function for setting a random expiration date
