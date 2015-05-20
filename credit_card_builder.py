@@ -22,12 +22,12 @@ def generateReplNumsList(count_of_unknown_numbers):
 	"""
 	unkNums = count_of_unknown_numbers
 	count = 10**unkNums  #n^r
-	my_list = list() 
-	i = 0	
+	my_list = list()
+	i = 0
 	for i in range (count):
 		n = str(i)
 		if len(n) < unkNums:
-			padding = int(unkNums - len(n)) 
+			padding = int(unkNums - len(n))
 			n = n.zfill(padding+1)
 			my_list.append(n)
 		else:
@@ -58,11 +58,11 @@ def buildList(thelist, thecard):
 	mylist = thelist
 	mystring = thecard
 	count = thecard.count("?")
-	
+
 	newlist = list()
 	newstring = ""
 	if len(mylist[1]) == count:
-		for i in range (len(mylist)): 
+		for i in range (len(mylist)):
 			newstring = mystring
 			replchars = mylist[i]
 			for x in range (count): 
